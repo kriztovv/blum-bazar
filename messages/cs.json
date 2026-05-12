@@ -13,9 +13,44 @@
       "title": "Domovská stránka",
       "description": "Vítejte na naší domovské stránce! Jsme rádi, že jste zde. Prozkoumejte naše služby a produkty, které vám mohou pomoci dosáhnout vašich cílů. Neváhejte nás kontaktovat pro více informací."
     },
+    "inzeraty": {
+      "title": "Inzeráty",
+      "description": "Prohlédněte si naše aktuální inzeráty a najděte skvělé nabídky. Nabízíme širokou škálu produktů a služeb, které mohou splnit vaše potřeby. Nezapomeňte pravidelně kontrolovat nové inzeráty!",
+      "newButton": "Vytvořit nový inzerát"
+    },
     "novy": {
       "title": "Nový příspěvek",
-      "description": "Vytvořte nový příspěvek"
+      "description": "Vytvořte nový příspěvek",
+      "backButton": "Zpět na seznam inzerátů",
+      "titleLabel": "Název produktu",
+      "titlePlaceholder": "např. laptop",
+      "descriptionLabel": "Popis produktu",
+      "descriptionPlaceholder": "např. Prodám svůj starý notebook, který je stále v dobrém stavu.",
+      "cityLabel": "Město",
+      "cityPlaceholder": "např. Praha",
+      "categoryLabel": "Kategorie",
+      "categoryPlaceholder": "Vyberte kategorii",
+      "category1": "Elektronika",
+      "category2": "Nábytek",
+      "category3": "Oblečení",
+      "category4": "Knihy",
+      "category5": "Jiné",
+      "priceLabel": "Cena (Kč)",
+      "pricePlaceholder": "např. 5000",
+      "freeLabel": "Zdarma",
+      "nameLabel": "Jméno",
+      "namePlaceholder": "např. Jan Novák",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "např. jan.novak@email.com",
+      "statusLabel": "Stav nabídky",
+      "statusPlaceholder": "Vyberte stav",
+      "status1": "Dostupné",
+      "status2": "Rezervované",
+      "status3": "Prodáno",
+      "imageUrlLabel": "URL obrázku",
+      "imageUrlPlaceholder": "např. https://example.com/obrazek.jpg",
+      "information": "Platbu a předání si domlouvejte přímo s kupujícím.",
+      "submitButton": "Odeslat inzerát"
     }
   }
 }
