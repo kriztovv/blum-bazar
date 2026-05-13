@@ -1,4 +1,4 @@
-import { Card, Group, SimpleGrid, Text, Title } from "@mantine/core";
+import { Box, Card, Group, Image, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { BackButton } from "@/components/BackButton";
@@ -31,9 +31,18 @@ export default async function Page(_: PageProps<"/[locale]">) {
       <SimpleGrid cols={3} mt="md">
         {listings.map((listing) => (
           <Card key={listing.id} shadow="xs" radius="lg" withBorder p="md">
-            <Title order={3}>{listing.title}</Title>
-            <Text>{listing.description}</Text>
-            <Text c="dimmed">{listing.city}</Text>
+            {listing.imageUrl ? (
+              <Image src={listing.imageUrl} alt={listing.title} h={200} fit="cover" radius="md" mb="sm" />
+            ) : (
+              <Box justify="center" h={200} mb="sm" bg="gray.4" radius="md">
+                <Text c="dimmed">No image available</Text>
+              </Box>
+            )}
+            <Stack>
+              <Title order={3}>{listing.title}</Title>
+              <Text>{listing.description}</Text>
+              <Text c="dimmed">{listing.city}</Text>
+            </Stack>
           </Card>
         ))}
       </SimpleGrid>
