@@ -4,9 +4,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { BackButton } from "@/components/BackButton";
+import { ListingActionButtons } from "@/components/ListingActionButtons";
 import { db } from "@/db";
 import { type Item, items } from "@/db/schemas/item-schemas.schema";
-import { ListingActionButtons } from "@/components/ListingActionButtons";
 
 function CategoryBadge({ categoryId, t }: { categoryId: number; t: any }) {
   if (categoryId === 0) {
@@ -80,7 +80,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
       <Grid gap="xl">
         {/* LEFT COLUMN: Image */}
         <GridCol span={{ base: 12, md: 6 }}>
-        <Paper shadow="xs" radius="lg" withBorder h={400} style={{ overflow: "hidden" }}>
+          <Paper shadow="xs" radius="lg" withBorder h={400} style={{ overflow: "hidden" }}>
             {listing.imageUrl ? (
               <Image src={listing.imageUrl} alt={listing.title} h="100%" fit="cover" />
             ) : (
@@ -145,10 +145,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
             </Paper>
 
             {/* Action Buttons */}
-            <ListingActionButtons
-              listingId={listing.id}
-              currentStatus={listing.statusID}
-            />
+            <ListingActionButtons listingId={listing.id} currentStatus={listing.statusID} />
           </Stack>
         </GridCol>
       </Grid>

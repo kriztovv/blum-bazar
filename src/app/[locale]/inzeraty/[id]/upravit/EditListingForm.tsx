@@ -17,12 +17,12 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { updateInzerat } from "@/app/actions";
 import { BackButton } from "@/components/BackButton";
 import type { Item } from "@/db/schemas/item-schemas.schema";
-import { useRouter } from "next/navigation";
 
 // import { updateInzerat } from "@/app/actions"; // Tvá server action pro úpravu
 
@@ -57,21 +57,18 @@ export function EditListingForm({ listing, locale }: EditListingFormProps) {
       category: (value) => (value === "" ? "Vyberte kategorii" : null),
       name: (value) => (value.trim().length === 0 ? "Jméno je povinné" : null),
       status: (value) => (value === "" ? "Vyberte stav nabídky" : null),
-      price: (value, values) =>
-        (!values.isFree && (value === undefined || value < 0) ? "Zadejte platnou cenu" : null),
-      email: (value) =>
-        (value && !/^\S+@\S+\.\S+$/.test(value) ? "Neplatný formát e-mailu" : null),
+      price: (value, values) => (!values.isFree && (value === undefined || value < 0) ? "Zadejte platnou cenu" : null),
+      email: (value) => (value && !/^\S+@\S+\.\S+$/.test(value) ? "Neplatný formát e-mailu" : null),
     },
   });
 
-const handleSubmit = async (values: typeof form.values) => {
+  const handleSubmit = async (values: typeof form.values) => {
     setLoading(true);
     try {
       console.log("Odesílání úprav:", values);
       await updateInzerat(values.id, values);
       router.refresh();
       router.push(`/${locale}/inzeraty/${listing.id}`);
-
     } catch (error) {
       console.error("Úprava selhala:", error);
     } finally {

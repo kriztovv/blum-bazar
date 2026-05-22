@@ -57,9 +57,7 @@ export async function updateInzerat(id: number, values: any) {
 
 export async function updateListingStatus(id: number, newStatusId: number) {
   try {
-    await db.update(items)
-      .set({ statusID: newStatusId })
-      .where(eq(items.id, id));
+    await db.update(items).set({ statusID: newStatusId }).where(eq(items.id, id));
 
     revalidatePath("/[locale]/inzeraty/[id]", "page");
     revalidatePath("/[locale]/inzeraty", "page");

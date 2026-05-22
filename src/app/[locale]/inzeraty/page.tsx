@@ -70,7 +70,9 @@ export default async function Page(_: PageProps<"/[locale]">) {
               <Group justify="space-between" align="center">
                 <Text c="dimmed">{listing.city}</Text>
                 {listing.price === 0 ? (
-                  <Badge color="teal" size="lg" variant="light">ZDARMA</Badge>
+                  <Badge color="teal" size="lg" variant="light">
+                    ZDARMA
+                  </Badge>
                 ) : (
                   <Text fw={800} size="lg" c="orange">
                     {listing.price} Kč
@@ -79,7 +81,7 @@ export default async function Page(_: PageProps<"/[locale]">) {
               </Group>
             </Stack>
 
-            <a href={`/cs/inzeraty/${listing.id}`} style={{ textDecoration: 'none' }}>
+            <a href={`/cs/inzeraty/${listing.id}`} style={{ textDecoration: "none" }}>
               <Button color="orange" mt="md" fullWidth>
                 {t("page.inzeraty.viewButton")}
               </Button>
