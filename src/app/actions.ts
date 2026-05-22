@@ -2,31 +2,54 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { eq } from "drizzle-orm"; // <-- TENTO IMPORT JE ZÁSADNÍ PRO ÚPRAVY
 import { db } from "@/db";
 import { items } from "@/db/schemas/item-schemas.schema";
 
+// Původní funkce pro vytvoření (zůstává beze změny)
 export async function createInzerat(values: any) {
-  // Convert string indices from the Select components to integers for the DB
   const categoryID = parseInt(values.category, 10);
   const statusID = parseInt(values.status, 10);
-
-  // Ensure price is 0 if 'isFree' was toggled, otherwise use the number input
   const finalPrice = values.isFree ? 0 : values.price || 0;
 
-  // Insert into SQLite using the schema columns
   await db.insert(items).values({
     title: values.title,
     description: values.description,
     city: values.city,
-    category: categoryID, // Saved as integer index
+    categoryID: categoryID,
     price: finalPrice,
     createdByName: values.name,
     createdByEmail: values.email,
-    status: statusID, // Saved as integer index
+    statusID: statusID,
     imageUrl: values.imageUrl,
   });
 
-  // Refresh the listings page and go back
   revalidatePath("/[locale]/inzeraty");
   redirect("/cs/inzeraty");
+}
+
+// NOVÁ FUNKCE PRO ÚPRAVU INZERÁTU
+export async function updateInzerat(id: number, values: any) {
+  const categoryID = parseInt(values.category, 10);
+  const statusID = parseInt(values.status, 10);
+  const finalPrice = values.isFree ? 0 : values.price || 0;
+
+  await db.update(items)
+    .set({
+      title: values.title,
+      description: values.description,
+      city: values.city,
+      categoryID: categoryID,
+      price: finalPrice,
+      createdByName: values.name,
+      createdByEmail: values.email,
+      statusID: statusID,
+      imageUrl: values.imageUrl,
+    })
+    .where(eq(items.id, id)); // Najde inzerát podle ID a přepíše ho
+
+  // Vymaže cache, aby se změny na webu projevily okamžitě
+  revalidatePath("/[locale]/inzeraty", "layout");
+
+  return { success: true };
 }

@@ -80,7 +80,6 @@ export function ListingForm() {
           withAsterisk={!form.values.isFree}
           suffix=" Kč"
           disabled={form.values.isFree}
-          // Force UI to show 0 if isFree is active
           value={form.values.isFree ? 0 : form.values.price}
           onChange={(val) => form.setFieldValue("price", Number(val))}
         />
