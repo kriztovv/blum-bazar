@@ -54,7 +54,7 @@ export default async function Page(_: PageProps<"/[locale]">) {
             ) : (
               <Paper h={200} mb="sm" bg="gray.4" radius="md">
                 <Group h={200} mb="sm" display="flex" justify="center" align="center">
-                  <Text c="dimmed">No image available</Text>
+                  <Text c="dimmed">Náhled obrázku nabídky</Text>
                 </Group>
               </Paper>
             )}
