@@ -23,6 +23,18 @@ export function ListingForm() {
       status: "", // Stores index as string: "0", "1", etc.
       imageUrl: "",
     },
+      validate: {
+      title: (value) => (value.trim().length === 0 ? "Název je povinný" : null),
+      description: (value) => (value.trim().length === 0 ? "Popis je povinný" : null),
+      city: (value) => (value.trim().length === 0 ? "Město je povinné" : null),
+      category: (value) => (value === "" ? "Vyberte kategorii" : null),
+      name: (value) => (value.trim().length === 0 ? "Jméno je povinné" : null),
+      status: (value) => (value === "" ? "Vyberte stav nabídky" : null),
+      price: (value, values) =>
+        (!values.isFree && (value === undefined || value < 0) ? "Zadejte platnou cenu" : null),
+      email: (value) =>
+        (value && !/^\S+@\S+\.\S+$/.test(value) ? "Neplatný formát e-mailu" : null),
+    },
   });
 
   const handleSubmit = async (values: typeof form.values) => {

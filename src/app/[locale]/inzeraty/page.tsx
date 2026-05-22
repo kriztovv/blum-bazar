@@ -63,11 +63,24 @@ export default async function Page(_: PageProps<"/[locale]">) {
                 <Title order={3}>{listing.title}</Title>
                 <Availability listing={listing} t={t} />
               </Group>
-              <Text>{listing.description}</Text>
-              <Text c="dimmed">{listing.city}</Text>
+
+              <Text lineClamp={2}>{listing.description}</Text>
+
+              {/* ZDE JE PŘIDANÁ CENA A MĚSTO V JEDNOM ŘÁDKU */}
+              <Group justify="space-between" align="center">
+                <Text c="dimmed">{listing.city}</Text>
+                {listing.price === 0 ? (
+                  <Badge color="teal" size="lg" variant="light">ZDARMA</Badge>
+                ) : (
+                  <Text fw={800} size="lg" c="orange">
+                    {listing.price} Kč
+                  </Text>
+                )}
+              </Group>
             </Stack>
-            <a href={`/cs/inzeraty/${listing.id}`}>
-              <Button color="orange" mt="md">
+
+            <a href={`/cs/inzeraty/${listing.id}`} style={{ textDecoration: 'none' }}>
+              <Button color="orange" mt="md" fullWidth>
                 {t("page.inzeraty.viewButton")}
               </Button>
             </a>

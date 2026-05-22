@@ -22,6 +22,7 @@ import { useState } from "react";
 import { updateInzerat } from "@/app/actions";
 import { BackButton } from "@/components/BackButton";
 import type { Item } from "@/db/schemas/item-schemas.schema";
+import { useRouter } from "next/navigation";
 
 // import { updateInzerat } from "@/app/actions"; // Tvá server action pro úpravu
 
@@ -32,6 +33,7 @@ interface EditListingFormProps {
 
 export function EditListingForm({ listing, locale }: EditListingFormProps) {
   const t = useTranslations();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const form = useForm({
@@ -48,13 +50,28 @@ export function EditListingForm({ listing, locale }: EditListingFormProps) {
       status: listing.statusID?.toString() || "0",
       imageUrl: listing.imageUrl || "",
     },
+    validate: {
+      title: (value) => (value.trim().length === 0 ? "Název je povinný" : null),
+      description: (value) => (value.trim().length === 0 ? "Popis je povinný" : null),
+      city: (value) => (value.trim().length === 0 ? "Město je povinné" : null),
+      category: (value) => (value === "" ? "Vyberte kategorii" : null),
+      name: (value) => (value.trim().length === 0 ? "Jméno je povinné" : null),
+      status: (value) => (value === "" ? "Vyberte stav nabídky" : null),
+      price: (value, values) =>
+        (!values.isFree && (value === undefined || value < 0) ? "Zadejte platnou cenu" : null),
+      email: (value) =>
+        (value && !/^\S+@\S+\.\S+$/.test(value) ? "Neplatný formát e-mailu" : null),
+    },
   });
 
-  const handleSubmit = async (values: typeof form.values) => {
+const handleSubmit = async (values: typeof form.values) => {
     setLoading(true);
     try {
       console.log("Odesílání úprav:", values);
       await updateInzerat(values.id, values);
+      router.refresh();
+      router.push(`/${locale}/inzeraty/${listing.id}`);
+
     } catch (error) {
       console.error("Úprava selhala:", error);
     } finally {
@@ -67,17 +84,16 @@ export function EditListingForm({ listing, locale }: EditListingFormProps) {
       {/* Stack už funguje jen jako rozvržení (bez component="form") */}
       <Stack w="100%" maw={1000} mx="auto">
         {/* Horní navigace */}
-        <Group justify="space-between" align="center" pb="md">
+        <Group justify="left" align="center" pb="md">
           <BackButton variant="subtle" color="orange" href={`/${locale}/inzeraty/${listing.id}`}>
             &larr; Zpět na detail
           </BackButton>
-          <Button type="submit" variant="light" color="violet" radius="xl" loading={loading}>
+          {/* <Button type="submit" variant="light" color="violet" radius="xl" loading={loading}>
             Uložit změny
-          </Button>
+          </Button> */}
         </Group>
       </Stack>
       <Grid gap="xl">
-        {/* LEVÝ SLOUPEC: Náhled obrázku + Pole pro editaci URL */}
         <GridCol span={{ base: 12, md: 6 }}>
           <Stack gap="md">
             <Paper shadow="xs" radius="lg" withBorder h={400} style={{ overflow: "hidden" }}>

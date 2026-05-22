@@ -54,3 +54,18 @@ export async function updateInzerat(id: number, values: any) {
 
   return { success: true };
 }
+
+export async function updateListingStatus(id: number, newStatusId: number) {
+  try {
+    await db.update(items)
+      .set({ statusID: newStatusId })
+      .where(eq(items.id, id));
+
+    revalidatePath("/[locale]/inzeraty/[id]", "page");
+    revalidatePath("/[locale]/inzeraty", "page");
+    return { success: true };
+  } catch (error) {
+    console.error("Chyba při aktualizaci stavu:", error);
+    return { success: false };
+  }
+}

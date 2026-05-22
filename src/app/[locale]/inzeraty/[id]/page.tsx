@@ -6,6 +6,7 @@ import { getTranslations } from "next-intl/server";
 import { BackButton } from "@/components/BackButton";
 import { db } from "@/db";
 import { type Item, items } from "@/db/schemas/item-schemas.schema";
+import { ListingActionButtons } from "@/components/ListingActionButtons";
 
 function CategoryBadge({ categoryId, t }: { categoryId: number; t: any }) {
   if (categoryId === 0) {
@@ -68,7 +69,6 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
           &larr; Zpět na seznam
         </BackButton>
 
-        {/* OPRAVA: Obalíme Button přímo do komponenty Link */}
         <Link href={`/${resolvedParams.locale}/inzeraty/${listing.id}/upravit`} style={{ textDecoration: "none" }}>
           <Button variant="light" color="violet" radius="xl">
             Upravit inzerát
@@ -80,11 +80,11 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
       <Grid gap="xl">
         {/* LEFT COLUMN: Image */}
         <GridCol span={{ base: 12, md: 6 }}>
-          <Paper shadow="xs" radius="lg" withBorder h="100%" style={{ overflow: "hidden" }}>
+        <Paper shadow="xs" radius="lg" withBorder h={400} style={{ overflow: "hidden" }}>
             {listing.imageUrl ? (
-              <Image src={listing.imageUrl} alt={listing.title} h={400} fit="cover" />
+              <Image src={listing.imageUrl} alt={listing.title} h="100%" fit="cover" />
             ) : (
-              <Group h={400} display="flex" justify="center" align="center" bg="gray.1">
+              <Group h="100%" display="flex" justify="center" align="center" bg="gray.1">
                 <Stack align="center" gap="xs">
                   <Text size="xl" c="gray.4">
                     🖼️
@@ -145,10 +145,10 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
             </Paper>
 
             {/* Action Buttons */}
-            <Group mt="xl">
-              <Button color="orange">Rezervovat</Button>
-              <Button variant="default">Označit jako prodáno</Button>
-            </Group>
+            <ListingActionButtons
+              listingId={listing.id}
+              currentStatus={listing.statusID}
+            />
           </Stack>
         </GridCol>
       </Grid>
