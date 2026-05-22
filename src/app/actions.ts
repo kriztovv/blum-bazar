@@ -1,8 +1,8 @@
 "use server";
 
+import { eq } from "drizzle-orm"; // <-- TENTO IMPORT JE ZÁSADNÍ PRO ÚPRAVY
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { eq } from "drizzle-orm"; // <-- TENTO IMPORT JE ZÁSADNÍ PRO ÚPRAVY
 import { db } from "@/db";
 import { items } from "@/db/schemas/item-schemas.schema";
 
@@ -34,7 +34,8 @@ export async function updateInzerat(id: number, values: any) {
   const statusID = parseInt(values.status, 10);
   const finalPrice = values.isFree ? 0 : values.price || 0;
 
-  await db.update(items)
+  await db
+    .update(items)
     .set({
       title: values.title,
       description: values.description,

@@ -20,7 +20,5 @@ export default async function EditListingPage({ params }: { params: Promise<{ id
 
   const listing = listingResult[0];
 
-  return (
-    <EditListingForm listing={listing} locale={resolvedParams.locale} />
-  );
+  return <EditListingForm listing={listing} locale={resolvedParams.locale} />;
 }

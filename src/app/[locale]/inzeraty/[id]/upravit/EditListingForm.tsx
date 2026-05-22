@@ -1,13 +1,28 @@
 "use client";
 
-import { Button, Checkbox, Grid, GridCol, Group, Image, Paper, Select, Stack, Text, Textarea, TextInput, NumberInput } from "@mantine/core";
+import {
+  Button,
+  Checkbox,
+  Grid,
+  GridCol,
+  Group,
+  Image,
+  NumberInput,
+  Paper,
+  Select,
+  Stack,
+  Text,
+  Textarea,
+  TextInput,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import Link from "next/link";
-import { type Item } from "@/db/schemas/item-schemas.schema";
-import { BackButton } from "@/components/BackButton";
 import { updateInzerat } from "@/app/actions";
+import { BackButton } from "@/components/BackButton";
+import type { Item } from "@/db/schemas/item-schemas.schema";
+
 // import { updateInzerat } from "@/app/actions"; // Tvá server action pro úpravu
 
 interface EditListingFormProps {
@@ -48,11 +63,9 @@ export function EditListingForm({ listing, locale }: EditListingFormProps) {
   };
 
   return (
-<form onSubmit={form.onSubmit(handleSubmit)}>
-
+    <form onSubmit={form.onSubmit(handleSubmit)}>
       {/* Stack už funguje jen jako rozvržení (bez component="form") */}
       <Stack w="100%" maw={1000} mx="auto">
-
         {/* Horní navigace */}
         <Group justify="space-between" align="center" pb="md">
           <BackButton variant="subtle" color="orange" href={`/${locale}/inzeraty/${listing.id}`}>
@@ -64,7 +77,6 @@ export function EditListingForm({ listing, locale }: EditListingFormProps) {
         </Group>
       </Stack>
       <Grid gap="xl">
-
         {/* LEVÝ SLOUPEC: Náhled obrázku + Pole pro editaci URL */}
         <GridCol span={{ base: 12, md: 6 }}>
           <Stack gap="md">
@@ -74,7 +86,9 @@ export function EditListingForm({ listing, locale }: EditListingFormProps) {
               ) : (
                 <Group h={400} display="flex" justify="center" align="center" bg="gray.1">
                   <Stack align="center" gap="xs">
-                    <Text size="xl" c="gray.4">🖼️</Text>
+                    <Text size="xl" c="gray.4">
+                      🖼️
+                    </Text>
                     <Text c="dimmed">Náhled obrázku nabídky</Text>
                   </Stack>
                 </Group>
@@ -93,7 +107,6 @@ export function EditListingForm({ listing, locale }: EditListingFormProps) {
         {/* PRAVÝ SLOUPEC: Detaily převedené na formulářové prvky */}
         <GridCol span={{ base: 12, md: 6 }}>
           <Stack gap="md">
-
             {/* Řádek 1: Název produktu & Výběr Kategorie */}
             <Grid grow align="flex-start">
               <GridCol span={7}>
@@ -172,7 +185,9 @@ export function EditListingForm({ listing, locale }: EditListingFormProps) {
 
             {/* Kontaktní údaje naskládané pod sebou s nadpisem */}
             <Stack gap="xs" mt="md">
-              <Text fw={600} size="sm" mb={-5}>Kontakt</Text>
+              <Text fw={600} size="sm" mb={-5}>
+                Kontakt
+              </Text>
               <Grid grow>
                 <GridCol span={6}>
                   <TextInput
@@ -201,9 +216,13 @@ export function EditListingForm({ listing, locale }: EditListingFormProps) {
             {/* Informační box o platbě - Zachován z detailu */}
             <Paper bg="violet.0" p="md" radius="md" mt="sm">
               <Group wrap="nowrap" align="flex-start">
-                <Text c="violet" fw={700}>ⓘ</Text>
+                <Text c="violet" fw={700}>
+                  ⓘ
+                </Text>
                 <Stack gap={4}>
-                  <Text fw={600} size="sm">Platba a předání</Text>
+                  <Text fw={600} size="sm">
+                    Platba a předání
+                  </Text>
                   <Text size="sm" c="dimmed">
                     Platbu a předání si domluvte přímo mezi sebou — hotově nebo QR platbou.
                   </Text>
@@ -216,13 +235,10 @@ export function EditListingForm({ listing, locale }: EditListingFormProps) {
               <Button type="submit" color="orange" loading={loading}>
                 Uložit změny
               </Button>
-              <Link href={`/${locale}/inzeraty/${listing.id}`} style={{ textDecoration: 'none' }}>
-                <Button variant="default">
-                  Zrušit
-                </Button>
+              <Link href={`/${locale}/inzeraty/${listing.id}`} style={{ textDecoration: "none" }}>
+                <Button variant="default">Zrušit</Button>
               </Link>
             </Group>
-
           </Stack>
         </GridCol>
       </Grid>

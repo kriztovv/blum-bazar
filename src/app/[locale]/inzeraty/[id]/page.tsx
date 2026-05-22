@@ -1,11 +1,11 @@
 import { Badge, Button, Grid, GridCol, Group, Image, Paper, Stack, Text, Title } from "@mantine/core";
 import { eq } from "drizzle-orm";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { BackButton } from "@/components/BackButton";
 import { db } from "@/db";
 import { type Item, items } from "@/db/schemas/item-schemas.schema";
-import Link from "next/link";
 
 function CategoryBadge({ categoryId, t }: { categoryId: number; t: any }) {
   if (categoryId === 0) {
@@ -14,14 +14,11 @@ function CategoryBadge({ categoryId, t }: { categoryId: number; t: any }) {
     return <Badge color="indigo">{t("page.novy.category2")}</Badge>;
   } else if (categoryId === 2) {
     return <Badge color="violet">{t("page.novy.category3")}</Badge>;
-  }
-  else if (categoryId === 3) {
+  } else if (categoryId === 3) {
     return <Badge color="grape">{t("page.novy.category4")}</Badge>;
-  }
-  else if (categoryId === 4) {
+  } else if (categoryId === 4) {
     return <Badge color="pink">{t("page.novy.category5")}</Badge>;
   }
-
 }
 
 interface AvailabilityProps {
@@ -66,22 +63,18 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
   return (
     <Stack w="100%" max-width="1000px" mx="auto">
       {/* Top Navigation Bar */}
-<Group justify="space-between" align="center" pb="md">
-  <BackButton variant="subtle" color="orange" href={`/${resolvedParams.locale}/inzeraty`}>
-    &larr; Zpět na seznam
-  </BackButton>
+      <Group justify="space-between" align="center" pb="md">
+        <BackButton variant="subtle" color="orange" href={`/${resolvedParams.locale}/inzeraty`}>
+          &larr; Zpět na seznam
+        </BackButton>
 
-  {/* OPRAVA: Obalíme Button přímo do komponenty Link */}
-  <Link href={`/${resolvedParams.locale}/inzeraty/${listing.id}/upravit`} style={{ textDecoration: 'none' }}>
-    <Button
-      variant="light"
-      color="violet"
-      radius="xl"
-    >
-      Upravit inzerát
-    </Button>
-  </Link>
-</Group>
+        {/* OPRAVA: Obalíme Button přímo do komponenty Link */}
+        <Link href={`/${resolvedParams.locale}/inzeraty/${listing.id}/upravit`} style={{ textDecoration: "none" }}>
+          <Button variant="light" color="violet" radius="xl">
+            Upravit inzerát
+          </Button>
+        </Link>
+      </Group>
 
       {/* Main Content Area */}
       <Grid gap="xl">
