@@ -16,7 +16,8 @@
     "inzeraty": {
       "title": "Inzeráty",
       "description": "Prohlédněte si naše aktuální inzeráty a najděte skvělé nabídky. Nabízíme širokou škálu produktů a služeb, které mohou splnit vaše potřeby. Nezapomeňte pravidelně kontrolovat nové inzeráty!",
-      "newButton": "Vytvořit nový inzerát"
+      "newButton": "Vytvořit nový inzerát",
+      "viewButton": "Zobrazit detail"
     },
     "novy": {
       "title": "Nový příspěvek",

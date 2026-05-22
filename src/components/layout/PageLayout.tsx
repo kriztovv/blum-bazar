@@ -10,7 +10,7 @@ const BODY_MAX_WIDTH = 1280;
 export function PageLayout({ children }: PropsWithChildren) {
   return (
     <AppShell header={{ height: HEADER_HEIGHT }} padding="md" withBorder={false}>
-      <AppShell.Header px="md">
+      <AppShell.Header px="md" withBorder>
         <Container size={BODY_MAX_WIDTH} h="100%">
           <Group h="100%" align="center" justify="space-between">
             <PageLogo />
