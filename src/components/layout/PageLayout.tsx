@@ -3,6 +3,7 @@
 import { AppShell, Container, Group } from "@mantine/core";
 import type { PropsWithChildren } from "react";
 import { PageLogo } from "@/components/layout/PageLogo";
+import { UserAuthMenu } from "@/components/layout/UserAuthMenu";
 
 const HEADER_HEIGHT = 90;
 const BODY_MAX_WIDTH = 1280;
@@ -14,6 +15,7 @@ export function PageLayout({ children }: PropsWithChildren) {
         <Container size={BODY_MAX_WIDTH} h="100%">
           <Group h="100%" align="center" justify="space-between">
             <PageLogo />
+            <UserAuthMenu />
           </Group>
         </Container>
       </AppShell.Header>
